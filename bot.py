@@ -32,7 +32,7 @@ bot = telebot.TeleBot(conf.token)
 
 
 if __name__ == "__main__":
-    # bot.remove_webhook()
+    bot.remove_webhook()
     # time.sleep(5)
     # bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH)
     #
