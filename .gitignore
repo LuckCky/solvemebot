@@ -1,2 +1,6 @@
 *idea*
 conf.py
+*.db
+*cache*
+/q/*.png
+/q/*lock*
