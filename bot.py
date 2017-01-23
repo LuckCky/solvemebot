@@ -1,7 +1,8 @@
 import telebot
-import time
 
 import cherrypy
+
+from utils import working_hours
 import conf
 
 # WEBHOOK_PORT = conf.webhook_port
@@ -15,6 +16,24 @@ import conf
 
 bot = telebot.TeleBot(conf.token)
 
+
+@bot.message_handler(commands=["start"])
+def command_start(message):
+    if working_hours():
+        message_text = conf.greeting
+    else:
+        message_text = conf.not_welcome
+    print(message.chat.id)
+    bot.send_message(message.chat.id, message_text)
+
+
+# @bot.callback_query_handler(func=lambda call: True)
+# def callback_inline(call):
+
+
+# @bot.message_handler(content_types=['text', 'audio', 'document', 'photo', 'sticker', 'video',
+#                                     'voice', 'location', 'contact'])
+# def button_reaction(message):
 
 # class WebhookServer(object):
 #     @cherrypy.expose
