@@ -2,7 +2,7 @@ import telebot
 
 import cherrypy
 
-from utils import working_hours
+from utils import working_hours, create_questions_table
 import conf
 
 # WEBHOOK_PORT = conf.webhook_port
@@ -21,10 +21,15 @@ bot = telebot.TeleBot(conf.token)
 def command_start(message):
     if working_hours():
         message_text = conf.greeting
+        create_questions_table(message.chat.id)
     else:
         message_text = conf.not_welcome
-    print(message.chat.id)
     bot.send_message(message.chat.id, message_text)
+
+
+@bot.message_handler(commands=["game"])
+def command_start_game(message):
+    print(message)
 
 
 # @bot.callback_query_handler(func=lambda call: True)
