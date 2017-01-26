@@ -14,7 +14,7 @@ def working_hours():
     return True
 
 
-def create_questions_table(user_id):
+def insert_questions(user_id):
     rb = xlrd.open_workbook(conf.questions_file, formatting_info=True)
     sheet = rb.sheet_by_name(conf.questions_sheet)
 
@@ -31,3 +31,6 @@ def create_questions_table(user_id):
         # print('I GOT PIC HERE')
         # print(answers)
     connection.commit()
+
+def read_current_question(user_id):
+    sqliter.SQLighter.select_single()
