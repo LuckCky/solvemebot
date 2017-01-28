@@ -1,8 +1,8 @@
 import telebot
-
 import cherrypy
 
 from utils import working_hours, insert_questions, read_current_question
+from utils import create_table, change_correct_answers
 import conf
 
 # WEBHOOK_PORT = conf.webhook_port
@@ -22,6 +22,7 @@ def command_start(message):
     # if working_hours():
     if True:
         message_text = conf.greeting
+        create_table()
         insert_questions(message.chat.id)
     else:
         message_text = conf.not_welcome
@@ -30,16 +31,33 @@ def command_start(message):
 
 @bot.message_handler(commands=["game"])
 def command_start_game(message):
-    question = read_current_question(message.chat.id)
+    question = read_current_question(message.chat.id)[3]
+    bot.send_message(message.chat.id, question)
+
+
+@bot.message_handler(content_types=['text', 'audio', 'document', 'photo', 'sticker', 'video',
+                                    'voice', 'location', 'contact'])
+def answer_reaction(message):
+    answer = message.text.lower()
+    correct_answers = read_current_question(message.chat.id)[4].lower()
+    correct_answers = correct_answers.split('\n')
+    if answer in correct_answers:
+        correct_answers.remove(answer)
+        if len(correct_answers) > 0:
+            message_text = conf.right_answer.format(len(correct_answers))
+            correct_answers = "\n".join(correct_answers)
+            change_correct_answers(message.chat.id, correct_answers)
+        else:
+            message_text = conf.next_answer
+            # TODO вызов метода, чтобы перейти к следующему вопросу
+    else:
+        message_text = conf.wrong_answer
+    bot.send_message(message.chat.id, message_text)
 
 
 # @bot.callback_query_handler(func=lambda call: True)
 # def callback_inline(call):
 
-
-# @bot.message_handler(content_types=['text', 'audio', 'document', 'photo', 'sticker', 'video',
-#                                     'voice', 'location', 'contact'])
-# def button_reaction(message):
 
 # class WebhookServer(object):
 #     @cherrypy.expose

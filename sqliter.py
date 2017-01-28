@@ -3,16 +3,6 @@ import sqlite3
 
 import conf
 
-connection = sqlite3.connect(conf.storage_name_params)
-try:
-    cursor = connection.cursor()
-    cursor.execute(conf.create_table)
-    connection.commit()
-except sqlite3.OperationalError:
-    pass
-finally:
-    connection.close()
-
 
 class SQLighter:
 
@@ -23,19 +13,21 @@ class SQLighter:
     def select_single(self, client_id):
         with self.connection:
             try:
-                response = self.cursor.execute('SELECT * FROM params WHERE id = ?', (client_id,)).fetchall()[0]
-                return response
+                current_question = self.cursor.execute(conf.select_current_question,
+                                                       (client_id,)).fetchall()[0]
+                return current_question
             except IndexError:
                 return None
 
-    def write_param(self, client_id, col_name, val):
+    def rewrite(self, client_id, col_name, val):
         with self.connection:
             try:
-                self.cursor.execute('UPDATE params SET {}=? WHERE id = ?'.format(str(col_name)), (str(val),
-                                                                                                  str(client_id),))
+                self.cursor.execute(conf.change_correct_answers.format(str(col_name)),
+                                    (str(val), str(client_id),))
                 self.connection.commit()
+                return True
             except sqlite3.OperationalError:
-                pass
+                return False
 
     def write_first_param(self, client_id, reply_url):
         with self.connection:
