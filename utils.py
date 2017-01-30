@@ -46,9 +46,17 @@ def insert_questions(user_id):
 
 
 def read_current_question(user_id):
-    current_string = sqliter.SQLighter(conf.storage_name).select_single(user_id)
+    current_string = sqliter.SQLighter(conf.storage_name).select_current(user_id)
     if current_string:
         return current_string
+    else:
+        return conf.no_questions
+
+
+def read_next_question(user_id):
+    next_string = sqliter.SQLighter(conf.storage_name).select_next(user_id)
+    if next_string:
+        return next_string
     else:
         return conf.no_questions
 
@@ -58,3 +66,7 @@ def change_correct_answers(user_id, value, column_name='answers'):
     if rewrite_answers:
         return True
     return False
+
+
+def set_next_question(user_id, value, column_name='answers'):
+    pass

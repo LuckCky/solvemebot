@@ -2,7 +2,7 @@ import telebot
 import cherrypy
 
 from utils import working_hours, insert_questions, read_current_question
-from utils import create_table, change_correct_answers
+from utils import create_table, change_correct_answers, read_next_question
 import conf
 
 # WEBHOOK_PORT = conf.webhook_port
@@ -48,7 +48,9 @@ def answer_reaction(message):
             correct_answers = "\n".join(correct_answers)
             change_correct_answers(message.chat.id, correct_answers)
         else:
-            message_text = conf.next_answer
+            message_text = conf.next_question
+            next_question = read_next_question(message.chat.id)
+            print(next_question)
             # TODO вызов метода, чтобы перейти к следующему вопросу
     else:
         message_text = conf.wrong_answer

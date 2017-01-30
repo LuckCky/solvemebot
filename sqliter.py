@@ -10,12 +10,21 @@ class SQLighter:
         self.connection = sqlite3.connect(database)
         self.cursor = self.connection.cursor()
 
-    def select_single(self, client_id):
+    def select_current(self, client_id):
         with self.connection:
             try:
                 current_question = self.cursor.execute(conf.select_current_question,
                                                        (client_id,)).fetchall()[0]
                 return current_question
+            except IndexError:
+                return None
+
+    def select_next(self, client_id):
+        with self.connection:
+            try:
+                next_question = self.cursor.execute(conf.select_next_question,
+                                                       (client_id,)).fetchall()[0]
+                return next_question
             except IndexError:
                 return None
 
