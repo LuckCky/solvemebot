@@ -53,8 +53,8 @@ def read_current_question(user_id):
         return conf.no_questions
 
 
-def read_next_question(user_id):
-    next_string = sqliter.SQLighter(conf.storage_name).select_next(user_id)
+def read_next_question(user_id, question_num):
+    next_string = sqliter.SQLighter(conf.storage_name).select_next(user_id, question_num)
     if next_string:
         return next_string
     else:
@@ -62,11 +62,16 @@ def read_next_question(user_id):
 
 
 def change_correct_answers(user_id, value, column_name='answers'):
-    rewrite_answers = sqliter.SQLighter(conf.storage_name).rewrite(user_id, column_name, value)
+    rewrite_answers = sqliter.SQLighter(conf.storage_name).rewrite(
+        client_id=user_id, col_name=column_name, val=value)
     if rewrite_answers:
         return True
     return False
 
 
-def set_next_question(user_id, value, column_name='answers'):
-    pass
+def set_next_question(user_id, question_num, new_value, column_name):
+    next_question_set = sqliter.SQLighter(conf.storage_name).rewrite(
+        user_id, new_value, column_name, question_num)
+    if next_question_set:
+        return True
+    return False

@@ -19,37 +19,32 @@ class SQLighter:
             except IndexError:
                 return None
 
-    def select_next(self, client_id):
+    def select_next(self, client_id, question_num):
         with self.connection:
             try:
                 next_question = self.cursor.execute(conf.select_next_question,
-                                                       (client_id,)).fetchall()[0]
+                                                    (client_id, question_num,)).fetchall()[0]
                 return next_question
             except IndexError:
                 return None
 
-    def rewrite(self, client_id, col_name, val):
-        with self.connection:
-            try:
-                self.cursor.execute(conf.change_correct_answers.format(str(col_name)),
-                                    (str(val), str(client_id),))
-                self.connection.commit()
-                return True
-            except sqlite3.OperationalError:
-                return False
-
-    def write_first_param(self, client_id, reply_url):
-        with self.connection:
-            try:
-                self.cursor.execute('INSERT INTO params ( id, reply ) VALUES ( ?, ? )', (client_id, str(reply_url),))
-                self.connection.commit()
-            except sqlite3.OperationalError:
-                pass
-
-    def clear_params(self, client_id):
-        with self.connection:
-            self.cursor.execute('DELETE FROM params WHERE id = ?', (client_id,))
-            self.connection.commit()
-
-    def close(self):
-        self.connection.close()
+    def rewrite(self, client_id, val, col_name=None, question_num=None):
+        if question_num:
+            with self.connection:
+                try:
+                    self.cursor.execute(conf.set_next_question, (
+                        str(val), str(client_id), str(question_num)))
+                    self.connection.commit()
+                    return True
+                except sqlite3.OperationalError:
+                    return False
+        else:
+            with self.connection:
+                try:
+                    self.cursor.execute(conf.change_correct_answers.format(str(col_name)),
+                                        (str(val), str(client_id),))
+                    self.connection.commit()
+                    return True
+                except sqlite3.OperationalError as e:
+                    print(e)
+                    return False
