@@ -26,7 +26,7 @@ class SQLighter:
                                                     (client_id, question_num,)).fetchall()[0]
                 return next_question
             except IndexError:
-                return None
+                return False
 
     def rewrite(self, client_id, val, col_name=None, question_num=None):
         if question_num:
@@ -48,3 +48,11 @@ class SQLighter:
                 except sqlite3.OperationalError as e:
                     print(e)
                     return False
+
+    def select_any(self, statement, user_id):
+        with self.connection:
+            try:
+                data = self.cursor.execute(statement, (user_id,)).fetchall()
+                return data
+            except IndexError:
+                return False

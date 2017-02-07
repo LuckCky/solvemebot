@@ -3,7 +3,7 @@ import cherrypy
 
 from utils import working_hours, insert_questions, read_current_question
 from utils import create_table, change_correct_answers, read_next_question
-from utils import set_next_question
+from utils import set_next_question, read_questions
 import conf
 
 # WEBHOOK_PORT = conf.webhook_port
@@ -52,6 +52,17 @@ def command_next_question(message):
             message_text = conf.gone_wrong
     else:
         message_text = conf.finished
+    bot.send_message(message.chat.id, message_text)
+
+
+@bot.message_handler(commands=["score"])
+def command_next_question(message):
+    total_questions = read_questions(conf.select_all_questions, message.chat.id)
+    answered_questions = read_questions(conf.select_answered_questions, message.chat.id)
+    if not answered_questions:
+        message_text = conf.game_score.format(len(total_questions), 0)
+    else:
+        message_text = conf.game_score.format(len(total_questions), len(answered_questions))
     bot.send_message(message.chat.id, message_text)
 
 

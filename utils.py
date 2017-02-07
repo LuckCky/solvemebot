@@ -38,10 +38,6 @@ def insert_questions(user_id):
         row = sheet.row_values(rownum)
         correct_answers = row[-2].lower().split('\n')
         cursor.execute(conf.insert_questions, (user_id, date, row[0], row[1], row[2], row[3]))
-
-        # if row[2].startswith('/'):
-        # print('I GOT PIC HERE')
-        # print(answers)
     connection.commit()
 
 
@@ -58,7 +54,7 @@ def read_next_question(user_id, question_num):
     if next_string:
         return next_string
     else:
-        return conf.no_questions
+        return sqliter.SQLighter(conf.storage_name).select_next(user_id, 0)
 
 
 def change_correct_answers(user_id, value, column_name='answers'):
@@ -75,3 +71,11 @@ def set_next_question(user_id, question_num, new_value, column_name):
     if next_question_set:
         return True
     return False
+
+
+def read_questions(statement, user_id):
+    data = sqliter.SQLighter(conf.storage_name).select_any(statement, user_id)
+    if data:
+        return data
+    else:
+        pass
