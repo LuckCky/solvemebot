@@ -34,7 +34,8 @@ def command_start(message):
 def command_start_game(message):
     question = read_current_question(message.chat.id)[3]
     if question.startswith('http'):
-        bot.send_photo(message.chat.id, question, 'Тут вопрос???')
+        question, text = question.split('\n')
+        bot.send_photo(message.chat.id, question.strip(), text)
     else:
         bot.send_message(message.chat.id, question)
 
