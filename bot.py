@@ -118,8 +118,9 @@ class WebhookServer(object):
             return ''
         else:
             raise cherrypy.HTTPError(403)
-
-WEBHOOK_PORT = 443
+import os
+# WEBHOOK_PORT = 443
+WEBHOOK_PORT = int(os.environ.get('PORT', '5000'))
 WEBHOOK_LISTEN = '0.0.0.0'
 
 WEBHOOK_URL_BASE = 'https://safe-savannah-14774.herokuapp.com'
