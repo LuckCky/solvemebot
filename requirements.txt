@@ -1,4 +1,5 @@
 pytelegrambotapi
 cherrypy
 xlrd
+psycopg2
 
