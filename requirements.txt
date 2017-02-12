@@ -2,4 +2,5 @@ pytelegrambotapi
 cherrypy
 xlrd
 psycopg2
+urlparse
 
