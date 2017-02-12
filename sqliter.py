@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import psycopg2
-from urllib.parse import urlparse
+import urlparse
 
 import conf
 
