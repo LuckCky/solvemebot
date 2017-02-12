@@ -1,13 +1,24 @@
 # -*- coding: utf-8 -*-
-import sqlite3
+import os
+import psycopg2
+import urlparse
 
 import conf
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
 
 class SQLighter:
 
-    def __init__(self, database):
-        self.connection = sqlite3.connect(database)
+    def __init__(self):
+        self.connection = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
         self.cursor = self.connection.cursor()
 
     def select_current(self, client_id):
