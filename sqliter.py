@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
 import psycopg2
-import urlparse
+import urllib.parse
 
 import conf
 
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
+urllib.parse.uses_netloc.append("postgres")
+url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
 
 
 class SQLighter:
