@@ -1,10 +1,14 @@
 import datetime
-import sqlite3
+import psycopg2
+import urllib.parse
 
 import xlrd
 
 import sqliter
 import conf
+
+urllib.parse.uses_netloc.append("postgres")
+url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
 
 
 def working_hours():
@@ -15,12 +19,18 @@ def working_hours():
 
 
 def create_table():
-    connection = sqlite3.connect(conf.storage_name)
+    connection = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
     try:
         cursor = connection.cursor()
         cursor.execute(conf.create_table)
         connection.commit()
-    except sqlite3.OperationalError:
+    except:
         pass
     finally:
         connection.close()
