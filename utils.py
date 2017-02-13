@@ -34,7 +34,7 @@ def create_table():
         pass
     finally:
         connection.close()
-        # return url
+        return url
 
 
 def insert_questions(user_id):

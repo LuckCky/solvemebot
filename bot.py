@@ -23,8 +23,8 @@ bot = telebot.TeleBot(conf.token)
 def command_start(message):
     # if working_hours():
     if True:
-        message_text = conf.greeting
-        create_table()
+        # message_text = conf.greeting
+        message_text = create_table()
         insert_questions(message.chat.id)
     else:
         message_text = conf.not_welcome
