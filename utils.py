@@ -9,7 +9,7 @@ import sqliter
 import conf
 
 urllib.parse.uses_netloc.append("postgres")
-url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+url = urllib.parse.urlparse(os.environ["postgres://jkrdobaraddzyq:a15fde4193959511557d29375f6390fc73de967538a7a5abc33aafd158033990@ec2-54-163-253-94.compute-1.amazonaws.com:5432/d7up437u4gtku7"])
 
 
 def working_hours():
