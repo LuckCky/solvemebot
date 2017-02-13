@@ -8,9 +8,6 @@ import xlrd
 import sqliter
 import conf
 
-urllib.parse.uses_netloc.append("postgres")
-url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
-
 
 def working_hours():
     d = datetime.datetime.now()
@@ -20,6 +17,8 @@ def working_hours():
 
 
 def create_table():
+    urllib.parse.uses_netloc.append("postgres")
+    url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
     connection = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
@@ -35,6 +34,7 @@ def create_table():
         pass
     finally:
         connection.close()
+        # return url
 
 
 def insert_questions(user_id):
