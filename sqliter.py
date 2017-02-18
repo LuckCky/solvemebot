@@ -6,7 +6,7 @@ import urllib.parse
 import conf
 
 urllib.parse.uses_netloc.append("postgres")
-url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+url = urllib.parse.urlparse(os.environ.get["DATABASE_URL"])
 
 
 class SQLighter:

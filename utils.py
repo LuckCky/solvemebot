@@ -5,9 +5,15 @@ import urllib.parse
 
 import xlrd
 
-import sqliter
 import conf
 
+# urllib.parse.uses_netloc.append("postgres")
+# for k, v in os.environ.items():
+#     print(k, v)
+# url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+# print(url)
+
+import sqliter
 
 def working_hours():
     d = datetime.datetime.now()
@@ -18,7 +24,7 @@ def working_hours():
 
 def create_table():
     urllib.parse.uses_netloc.append("postgres")
-    url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+    url = urllib.parse.urlparse(os.environ.get["DATABASE_URL"])
     connection = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
