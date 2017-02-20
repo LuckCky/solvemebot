@@ -15,6 +15,7 @@ import conf
 
 import sqliter
 
+
 def working_hours():
     d = datetime.datetime.now()
     if d.hour < 21 or d.hour >= 23:
@@ -24,7 +25,7 @@ def working_hours():
 
 def create_table():
     urllib.parse.uses_netloc.append("postgres")
-    url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+    url = urllib.parse.urlparse(os.environ.get("DATABASE_URL"))
     connection = psycopg2.connect(
         database=url.path[1:],
         user=url.username,

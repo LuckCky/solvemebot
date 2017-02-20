@@ -23,7 +23,7 @@ def command_start(message):
     if True:
         # message_text = conf.greeting
         message_text = create_table()
-        insert_questions(message.chat.id)
+        # insert_questions(message.chat.id)
     else:
         message_text = conf.not_welcome
     bot.send_message(message.chat.id, message_text)
