@@ -120,18 +120,18 @@ class WebhookServer(object):
 
 if __name__ == "__main__":
     bot.remove_webhook()
-    # time.sleep(5)
-    # bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH)
-    #
-    # cherrypy.config.update({
-    #     'engine.autoreload.on': False,
-    #     'server.socket_host': WEBHOOK_LISTEN,
-    #     'server.socket_port': WEBHOOK_PORT,
-    # })
-    #
-    # # RUN SERVER, RUN!
-    # cherrypy.tree.mount(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
-    #
-    # cherrypy.engine.start()
-    # cherrypy.engine.block()
-    bot.polling()
+    time.sleep(5)
+    bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH)
+
+    cherrypy.config.update({
+        'engine.autoreload.on': False,
+        'server.socket_host': WEBHOOK_LISTEN,
+        'server.socket_port': WEBHOOK_PORT,
+    })
+
+    # RUN SERVER, RUN!
+    cherrypy.tree.mount(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
+
+    cherrypy.engine.start()
+    cherrypy.engine.block()
+    # bot.polling()
