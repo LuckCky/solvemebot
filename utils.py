@@ -31,13 +31,10 @@ def create_table():
         cursor = connection.cursor()
         cursor.execute(conf.create_table)
         connection.commit()
-        answer = 'OK'
-    except Exception as e:
-        answer = 'NOT OK' + str(e)
+    except:
+        pass
     finally:
         connection.close()
-        # answer += 'FINALLY'
-        return answer
 
 
 def insert_questions(user_id):

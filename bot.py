@@ -21,9 +21,8 @@ bot = telebot.TeleBot(conf.token)
 def command_start(message):
     # if working_hours():
     if True:
-        # message_text = conf.greeting
-        message_text = create_table()
-        # insert_questions(message.chat.id)
+        message_text = conf.greeting
+        insert_questions(message.chat.id)
     else:
         message_text = conf.not_welcome
     bot.send_message(message.chat.id, message_text)
@@ -119,6 +118,8 @@ class WebhookServer(object):
 
 
 if __name__ == "__main__":
+    create_table()
+
     bot.remove_webhook()
     time.sleep(5)
     bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH)
