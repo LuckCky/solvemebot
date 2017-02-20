@@ -26,8 +26,10 @@ class SQLighter:
             try:
                 current_question = self.cursor.execute(conf.select_current_question,
                                                        (client_id,)).fetchall()[0]
+                print(current_question)
                 return current_question
             except IndexError:
+                print('index error')
                 return None
 
     def select_next(self, client_id, question_num):
