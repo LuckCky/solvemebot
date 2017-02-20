@@ -54,17 +54,17 @@ def insert_questions(user_id):
     cursor = connection.cursor()
 
     date = datetime.datetime.now().strftime('%Y-%m-%d')
-    for rownum in range(1, sheet.nrows):
-        row = sheet.row_values(rownum)
-        # correct_answers = row[-2].lower().split('\n')
-        try:
+    try:
+        for rownum in range(1, sheet.nrows):
+            row = sheet.row_values(rownum)
+            # correct_answers = row[-2].lower().split('\n')
             cursor.execute(conf.insert_questions, (user_id, date, row[0], row[1], row[2], row[3]))
-            connection.commit()
-        except Exception as e:
-            print(e)
-            create_table()
-        finally:
-            connection.close()
+    except Exception as e:
+        print(e)
+        create_table()
+    finally:
+        connection.commit()
+        connection.close()
 
 
 def read_current_question(user_id):
