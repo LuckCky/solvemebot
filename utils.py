@@ -27,6 +27,7 @@ def create_table():
         host=url.hostname,
         port=url.port
     )
+    answer = ''
     try:
         cursor = connection.cursor()
         cursor.execute(conf.create_table)
@@ -36,7 +37,7 @@ def create_table():
         answer = 'NOT OK' + e
     finally:
         connection.close()
-        answer = 'FINALLY'
+        answer += 'FINALLY'
         return answer
 
 
