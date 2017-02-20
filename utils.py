@@ -5,15 +5,9 @@ import urllib.parse
 
 import xlrd
 
-import conf
-
-# urllib.parse.uses_netloc.append("postgres")
-# for k, v in os.environ.items():
-#     print(k, v)
-# url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
-# print(url)
-
 import sqliter
+
+import conf
 
 
 def working_hours():
@@ -41,7 +35,6 @@ def create_table():
         pass
     finally:
         connection.close()
-        return url.hostname
 
 
 def insert_questions(user_id):
