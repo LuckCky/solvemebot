@@ -59,11 +59,12 @@ def insert_questions(user_id):
         # correct_answers = row[-2].lower().split('\n')
         try:
             cursor.execute(conf.insert_questions, (user_id, date, row[0], row[1], row[2], row[3]))
+            connection.commit()
         except Exception as e:
             print(e)
             create_table()
         finally:
-            connection.commit()
+            connection.close()
 
 
 def read_current_question(user_id):
