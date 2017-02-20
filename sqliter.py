@@ -47,7 +47,7 @@ class SQLighter:
                         str(val), str(client_id), str(question_num)))
                     self.connection.commit()
                     return True
-                except sqlite3.OperationalError:
+                except:
                     return False
         else:
             with self.connection:
@@ -56,8 +56,7 @@ class SQLighter:
                                         (str(val), str(client_id),))
                     self.connection.commit()
                     return True
-                except sqlite3.OperationalError as e:
-                    print(e)
+                except:
                     return False
 
     def select_any(self, statement, user_id):
