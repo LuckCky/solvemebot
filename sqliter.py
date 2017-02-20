@@ -20,13 +20,14 @@ class SQLighter:
             port=url.port
         )
         self.cursor = self.connection.cursor()
+        print('CONNECTED')
 
     def select_current(self, client_id):
         with self.connection:
             try:
                 current_question = self.cursor.execute(conf.select_current_question,
                                                        (client_id,)).fetchall()[0]
-                print(current_question)
+                print('current_question', current_question)
                 return current_question
             except IndexError:
                 print('index error')
