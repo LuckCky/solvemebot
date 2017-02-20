@@ -36,7 +36,8 @@ def create_table():
         answer = 'NOT OK' + e
     finally:
         connection.close()
-    return answer
+        answer = 'FINALLY'
+        return answer
 
 
 def insert_questions(user_id):
