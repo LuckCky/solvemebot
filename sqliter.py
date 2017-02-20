@@ -20,11 +20,12 @@ class SQLighter:
             port=url.port
         )
         self.cursor = self.connection.cursor()
-        print('CONNECTED')
 
     def select_current(self, client_id):
+        print('selecting question')
         with self.connection:
             try:
+                print('try started')
                 current_question = self.cursor.execute(conf.select_current_question,
                                                        (client_id,)).fetchall()[0]
                 print('current_question', current_question)
