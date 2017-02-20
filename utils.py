@@ -61,6 +61,7 @@ def insert_questions(user_id):
             cursor.execute(conf.insert_questions, (user_id, date, row[0], row[1], row[2], row[3]))
         except Exception as e:
             print(e)
+            create_table()
         finally:
             connection.commit()
 
