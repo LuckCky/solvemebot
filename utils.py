@@ -27,17 +27,16 @@ def create_table():
         host=url.hostname,
         port=url.port
     )
-    answer = ''
     try:
         cursor = connection.cursor()
         cursor.execute(conf.create_table)
         connection.commit()
         answer = 'OK'
     except Exception as e:
-        answer = 'NOT OK' + e
+        answer = 'NOT OK' + str(e)
     finally:
         connection.close()
-        answer += 'FINALLY'
+        # answer += 'FINALLY'
         return answer
 
 
