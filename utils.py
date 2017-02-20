@@ -31,10 +31,12 @@ def create_table():
         cursor = connection.cursor()
         cursor.execute(conf.create_table)
         connection.commit()
-    except:
-        pass
+        answer = 'OK'
+    except Exception as e:
+        answer = 'NOT OK' + e
     finally:
         connection.close()
+    return answer
 
 
 def insert_questions(user_id):
