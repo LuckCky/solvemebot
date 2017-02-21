@@ -22,23 +22,19 @@ class SQLighter:
         self.cursor = self.connection.cursor()
 
     def select_current(self, client_id):
-        print('selecting question')
         with self.connection:
             try:
-                print('try started')
                 self.cursor.execute(conf.select_current_question, (str(client_id), ))
                 current_question = self.cursor.fetchall()[0]
-                print('current_question', current_question)
                 return current_question
             except IndexError:
-                print('index error')
                 return None
 
     def select_next(self, client_id, question_num):
         with self.connection:
             try:
-                next_question = self.cursor.execute(conf.select_next_question,
-                                                    (client_id, question_num,)).fetchall()[0]
+                self.cursor.execute(conf.select_next_question, (str(client_id), str(question_num), ))
+                next_question = self.cursor.fetchall()[0]
                 return next_question
             except IndexError:
                 return False
@@ -66,7 +62,8 @@ class SQLighter:
     def select_any(self, statement, user_id):
         with self.connection:
             try:
-                data = self.cursor.execute(statement, (user_id,)).fetchall()
+                self.cursor.execute(statement, (str(user_id), ))
+                data = self.cursor.fetchall()
                 return data
             except IndexError:
                 return False

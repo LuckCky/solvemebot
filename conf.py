@@ -15,11 +15,11 @@ create_table = ('CREATE TABLE games ( userID VARCHAR(50), date DATE, questionNum
 insert_questions = ('INSERT INTO games ( userID, date, questionNum, questionText, answers, status )'
                     ' VALUES ( %s, %s, %s, %s, %s, %s )')
 select_current_question = "SELECT * FROM games WHERE userID = %s AND status = 'Active'"
-change_correct_answers = "UPDATE games SET {} = ( ? ) WHERE userID = ? AND status = 'Active'"
-select_next_question = "SELECT * FROM games WHERE userID = ? AND status = 'Next' AND questionNum > ?"
-set_next_question = "UPDATE games SET status = ? WHERE userID = ? and questionNum = ?"
-select_all_questions = 'SELECT * FROM games WHERE userID = ?'
-select_answered_questions = "SELECT * FROM games WHERE userID = ? AND status = 'Solved'"
+change_correct_answers = "UPDATE games SET {} = ( %s ) WHERE userID = %s AND status = 'Active'"
+select_next_question = "SELECT * FROM games WHERE userID = %s AND status = 'Next' AND questionNum > %s"
+set_next_question = "UPDATE games SET status = %s WHERE userID = %s and questionNum = %s"
+select_all_questions = 'SELECT * FROM games WHERE userID = %s'
+select_answered_questions = "SELECT * FROM games WHERE userID = %s AND status = 'Solved'"
 
 # texts for messages here
 greeting = 'Добро пожаловать в чертоги разума!  Вас ждет игра на сообразительность, в случае ' \
