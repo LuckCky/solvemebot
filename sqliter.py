@@ -27,7 +27,7 @@ class SQLighter:
             try:
                 print('try started')
                 current_question = self.cursor.execute(conf.select_current_question,
-                                                       (client_id,)).fetchall()
+                                                       (client_id)).fetchall()
                 print('current_question', current_question)
                 return current_question
             except IndexError:
