@@ -14,7 +14,7 @@ create_table = ('CREATE TABLE games ( userID VARCHAR(50), date DATE, questionNum
                 'questionText VARCHAR(2000), answers VARCHAR(1000), status VARCHAR(30) )')
 insert_questions = ('INSERT INTO games ( userID, date, questionNum, questionText, answers, status )'
                     ' VALUES ( %s, %s, %s, %s, %s, %s )')
-select_current_question = "SELECT questionText FROM games WHERE userID = %s AND status = 'Active'"
+select_current_question = "SELECT * FROM games WHERE userID = %s AND status = 'Active'"
 change_correct_answers = "UPDATE games SET {} = ( ? ) WHERE userID = ? AND status = 'Active'"
 select_next_question = "SELECT * FROM games WHERE userID = ? AND status = 'Next' AND questionNum > ?"
 set_next_question = "UPDATE games SET status = ? WHERE userID = ? and questionNum = ?"
