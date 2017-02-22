@@ -48,18 +48,18 @@ def insert_questions(user_id):
         port=url.port
     )
 
-    rb = xlrd.open_workbook(conf.questions_file, formatting_info=True)
-    sheet = rb.sheet_by_name(conf.questions_sheet)
-
     cursor = connection.cursor()
 
     date = datetime.datetime.now().strftime('%Y-%m-%d')
 
-    cursor.execute(conf.check_questions, (user_id, date, ))
+    cursor.execute(conf.check_questions, (str(user_id), date, ))
     questions_exist = cursor.fetchall()
     print(questions_exist)
     if questions_exist:
         return
+
+    rb = xlrd.open_workbook(conf.questions_file, formatting_info=True)
+    sheet = rb.sheet_by_name(conf.questions_sheet)
 
     try:
         for rownum in range(1, sheet.nrows):
