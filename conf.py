@@ -14,12 +14,16 @@ create_table = ('CREATE TABLE games ( userID VARCHAR(50), date DATE, questionNum
                 'questionText VARCHAR(2000), answers VARCHAR(1000), status VARCHAR(30) )')
 insert_questions = ('INSERT INTO games ( userID, date, questionNum, questionText, answers, status )'
                     ' VALUES ( %s, %s, %s, %s, %s, %s )')
-select_current_question = "SELECT * FROM games WHERE userID = %s AND status = 'Active'"
-change_correct_answers = "UPDATE games SET {} = ( %s ) WHERE userID = %s AND status = 'Active'"
-select_next_question = "SELECT * FROM games WHERE userID = %s AND status = 'Next' AND questionNum > %s"
-set_next_question = "UPDATE games SET status = %s WHERE userID = %s and questionNum = %s"
-select_all_questions = 'SELECT * FROM games WHERE userID = %s'
-select_answered_questions = "SELECT * FROM games WHERE userID = %s AND status = 'Solved'"
+select_current_question = "SELECT * FROM games WHERE userID = %s AND status = 'Active' AND date = %s"
+change_correct_answers = ("UPDATE games SET {} = ( %s ) WHERE userID = %s AND "
+                          "status = 'Active' AND date = %s")
+select_next_question = ("SELECT * FROM games WHERE userID = %s AND status = 'Next' "
+                        "AND questionNum > %s AND date = %s")
+set_next_question = ("UPDATE games SET status = %s WHERE userID = %s "
+                     "AND questionNum = %s AND date = %s")
+select_all_questions = 'SELECT * FROM games WHERE userID = %s AND date = %s'
+select_answered_questions = ("SELECT * FROM games WHERE userID = %s "
+                             "AND status = 'Solved' AND date = %s")
 
 # texts for messages here
 greeting = 'Добро пожаловать в чертоги разума!  Вас ждет игра на сообразительность, в случае ' \

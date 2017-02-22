@@ -1,5 +1,4 @@
-pytelegrambotapi
 cherrypy
-xlrd
 psycopg2
-
+pytelegrambotapi
+xlrd
