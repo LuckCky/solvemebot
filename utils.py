@@ -54,7 +54,6 @@ def insert_questions(user_id):
 
     cursor.execute(conf.check_questions, (str(user_id), date, ))
     questions_exist = cursor.fetchall()
-    print(questions_exist)
     if questions_exist:
         return
 
@@ -65,8 +64,7 @@ def insert_questions(user_id):
         for rownum in range(1, sheet.nrows):
             row = sheet.row_values(rownum)
             cursor.execute(conf.insert_questions, (user_id, date, row[0], row[1], row[2], row[3]))
-    except Exception as e:
-        print(e)
+    except:
         create_table()
     finally:
         connection.commit()
