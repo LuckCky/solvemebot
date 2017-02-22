@@ -54,10 +54,16 @@ def insert_questions(user_id):
     cursor = connection.cursor()
 
     date = datetime.datetime.now().strftime('%Y-%m-%d')
+
+    cursor.execute(conf.check_questions, (user_id, date, ))
+    questions_exist = cursor.fetchall()
+    print(questions_exist)
+    if questions_exist:
+        return
+
     try:
         for rownum in range(1, sheet.nrows):
             row = sheet.row_values(rownum)
-            # correct_answers = row[-2].lower().split('\n')
             cursor.execute(conf.insert_questions, (user_id, date, row[0], row[1], row[2], row[3]))
     except Exception as e:
         print(e)

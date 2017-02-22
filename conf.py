@@ -24,6 +24,7 @@ set_next_question = ("UPDATE games SET status = %s WHERE userID = %s "
 select_all_questions = 'SELECT * FROM games WHERE userID = %s AND date = %s'
 select_answered_questions = ("SELECT * FROM games WHERE userID = %s "
                              "AND status = 'Solved' AND date = %s")
+check_questions = "SELECT * FROM games WHERE userID = %s AND date = %s"
 
 # texts for messages here
 greeting = 'Добро пожаловать в чертоги разума!  Вас ждет игра на сообразительность, в случае ' \
