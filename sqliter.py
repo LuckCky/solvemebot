@@ -39,7 +39,7 @@ class SQLighter:
         with self.connection:
             try:
                 self.cursor.execute(conf.select_next_question, (str(client_id),
-                                                                str(question_num), date, ))
+                                                                question_num, date, ))
                 next_question = self.cursor.fetchall()[0]
                 return next_question
             except IndexError:
@@ -52,7 +52,7 @@ class SQLighter:
             with self.connection:
                 try:
                     self.cursor.execute(conf.set_next_question, (
-                        str(val), str(client_id), str(question_num), date, ))
+                        str(val), str(client_id), question_num, date, ))
                     self.connection.commit()
                     return True
                 except:
