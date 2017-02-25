@@ -7,8 +7,6 @@ token = '323106771:AAFhvq7fGQNRVOqwGDmPH2MywuJHtklEr4Y'
 # Your own chat id. Ask https://telegram.me/my_id_bot to tell you yours
 admins_list = []
 
-storage_name = 'games.db'
-
 # SQL stuff here
 create_table = ('CREATE TABLE games ( userID VARCHAR(50), date DATE, questionNum NUMERIC, '
                 'questionText VARCHAR(2000), answers VARCHAR(1000), status VARCHAR(30) )')
