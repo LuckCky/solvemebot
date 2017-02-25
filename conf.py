@@ -10,7 +10,7 @@ admins_list = []
 storage_name = 'games.db'
 
 # SQL stuff here
-create_table = ('CREATE TABLE games ( userID VARCHAR(50), date DATE, questionNum FLOAT, '
+create_table = ('CREATE TABLE games ( userID VARCHAR(50), date DATE, questionNum NUMERIC, '
                 'questionText VARCHAR(2000), answers VARCHAR(1000), status VARCHAR(30) )')
 insert_questions = ('INSERT INTO games ( userID, date, questionNum, questionText, answers, status )'
                     ' VALUES ( %s, %s, %s, %s, %s, %s )')
