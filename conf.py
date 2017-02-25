@@ -21,7 +21,7 @@ change_correct_answers = ("UPDATE games SET {} = ( %s ) WHERE userID = %s AND "
 select_next_question = ("SELECT * FROM games WHERE userID = %s AND status = 'Next' "
                         "AND questionNum > %s AND date = %s ORDER BY questionNum")
 set_next_question = ("UPDATE games SET status = %s WHERE userID = %s "
-                     "AND questionNum = %s AND date = %s ORDER BY questionNum")
+                     "AND questionNum = %s AND date = %s")
 select_all_questions = 'SELECT * FROM games WHERE userID = %s AND date = %s ORDER BY questionNum'
 select_answered_questions = ("SELECT * FROM games WHERE userID = %s "
                              "AND status = 'Solved' AND date = %s")
