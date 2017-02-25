@@ -14,14 +14,15 @@ create_table = ('CREATE TABLE games ( userID VARCHAR(50), date DATE, questionNum
                 'questionText VARCHAR(2000), answers VARCHAR(1000), status VARCHAR(30) )')
 insert_questions = ('INSERT INTO games ( userID, date, questionNum, questionText, answers, status )'
                     ' VALUES ( %s, %s, %s, %s, %s, %s )')
-select_current_question = "SELECT * FROM games WHERE userID = %s AND status = 'Active' AND date = %s"
+select_current_question = ("SELECT * FROM games WHERE userID = %s AND status = 'Active' "
+                           "AND date = %s ORDER BY questionNum")
 change_correct_answers = ("UPDATE games SET {} = ( %s ) WHERE userID = %s AND "
                           "status = 'Active' AND date = %s")
 select_next_question = ("SELECT * FROM games WHERE userID = %s AND status = 'Next' "
-                        "AND questionNum > %s AND date = %s")
+                        "AND questionNum > %s AND date = %s ORDER BY questionNum")
 set_next_question = ("UPDATE games SET status = %s WHERE userID = %s "
-                     "AND questionNum = %s AND date = %s")
-select_all_questions = 'SELECT * FROM games WHERE userID = %s AND date = %s'
+                     "AND questionNum = %s AND date = %s ORDER BY questionNum")
+select_all_questions = 'SELECT * FROM games WHERE userID = %s AND date = %s ORDER BY questionNum'
 select_answered_questions = ("SELECT * FROM games WHERE userID = %s "
                              "AND status = 'Solved' AND date = %s")
 check_questions = "SELECT * FROM games WHERE userID = %s AND date = %s"
