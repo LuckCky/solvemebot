@@ -82,6 +82,7 @@ def answer_reaction(message):
             else:
                 message_text = conf.gone_wrong
         else:
+            change_correct_answers(message.chat.id, correct_answers)
             current_question_num = read_current_question(message.chat.id)[2]
             next_question = read_next_question(message.chat.id, current_question_num)
             if next_question:
@@ -92,6 +93,7 @@ def answer_reaction(message):
                 else:
                     message_text = conf.gone_wrong
             else:
+                set_next_question(message.chat.id, current_question_num, 'Solved', 'status')
                 message_text = conf.finished
     else:
         message_text = conf.wrong_answer
