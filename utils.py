@@ -66,6 +66,9 @@ def insert_questions(user_id):
             cursor.execute(conf.insert_questions, (user_id, date, row[0], row[1], row[2], row[3]))
     except:
         create_table()
+        for rownum in range(1, sheet.nrows):
+            row = sheet.row_values(rownum)
+            cursor.execute(conf.insert_questions, (user_id, date, row[0], row[1], row[2], row[3]))
     finally:
         connection.commit()
         connection.close()
